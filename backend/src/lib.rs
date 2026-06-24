@@ -1,11 +1,7 @@
-#![feature(slice_pattern)]
 #![feature(box_into_inner)]
-#![feature(never_type)]
 #![feature(map_try_insert)]
 #![feature(variant_count)]
 #![feature(iter_array_chunks)]
-#![feature(associated_type_defaults)]
-#![feature(string_into_chars)]
 #![feature(stmt_expr_attributes)]
 
 use std::{
