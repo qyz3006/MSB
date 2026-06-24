@@ -131,6 +131,7 @@ struct RotatorDebugState {
 
 #[derive(Clone)]
 struct TimelineEntry {
+    #[allow(dead_code)]
     at_ms: u64,
     text: String,
     is_warn: bool,
@@ -373,7 +374,7 @@ pub fn RotatorDebugPanel() -> Element {
                                                 span { class: "text-yellow-400 mr-1", "▶" }
                                             }
                                             {av.id.map(|id| format!("#{id} ")).unwrap_or_default()}
-                                            {av.label.clone()}
+                                            {av.label}
                                         }
                                     }
                                 }

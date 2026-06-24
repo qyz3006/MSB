@@ -2,7 +2,6 @@
 #![allow(clippy::useless_format)]
 #![feature(variant_count)]
 #![feature(map_try_insert)]
-#![feature(push_mut)]
 #![feature(iter_intersperse)]
 
 use std::{env::current_exe, io::stdout, string::ToString, sync::LazyLock};
