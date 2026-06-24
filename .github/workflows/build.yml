@@ -24,7 +24,7 @@ on:
       - "docs/**"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   test:
@@ -40,3 +40,39 @@ jobs:
       - run: cargo fmt --check
       - run: cargo clippy -- -D warnings
       - run: cargo test -- --no-capture
+
+  build:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        type: [release, debug]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup
+
+      - name: Build ${{ matrix.type }}
+        shell: pwsh
+        run: |
+          $args = "--verbose", "--package", "ui"
+          if ("${{ matrix.type }}" -eq "release") {
+            $args += "--release"
+          }
+          dx build @args
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.type }}
+          path: target/dx/ui/${{ matrix.type }}/windows/app
+
+      - if: startsWith(github.ref, 'refs/tags/')
+        run: Compress-Archive -Path target/dx/ui/${{ matrix.type }}/windows/app/* -Destination app-${{ matrix.type }}.zip
+
+      - uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          files: |
+            app-${{ matrix.type }}.zip
