@@ -1,4 +1,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+#![allow(clippy::useless_format)]
 #![feature(variant_count)]
 #![feature(map_try_insert)]
 #![feature(push_mut)]
