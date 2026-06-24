@@ -604,7 +604,7 @@ fn main() {
         .arg("-Command")
         .arg(format!(
             "& {{ . {}; join {} {}}}",
-            &join_script,
+            join_script,
             onnx_runtime_cuda.to_str().unwrap(),
             dx_exe_dir
                 .join(onnx_runtime_cuda.file_name().unwrap())
@@ -626,7 +626,7 @@ fn main() {
         .arg("-Command")
         .arg(format!(
             "& {{ . {}; join {} {}}}",
-            &join_script,
+            join_script,
             onnx_runtime_cuda.to_str().unwrap(),
             normal_exe_dir
                 .join(onnx_runtime_cuda.file_name().unwrap())
