@@ -15,7 +15,7 @@ use opencv::{
     core::{
         BORDER_CONSTANT, CMP_EQ, CMP_GT, CV_8U, CV_32FC3, CV_32S, Mat, MatExprTraitConst, MatTrait,
         MatTraitConst, MatTraitConstManual, ModifyInplace, Point, Range, Rect, Scalar, Size,
-        ToInputArray, Vec3b, Vector, add, add_weighted_def, bitwise_and_def, compare,
+        ToInputArray, Vec3b, Vector, VectorToVec, add, add_weighted_def, bitwise_and_def, compare,
         copy_make_border, divide2_def, extract_channel, find_non_zero, min_max_loc, no_array,
         subtract_def, transpose_nd,
     },
@@ -1161,6 +1161,33 @@ fn detect_minimap_rune(minimap_bgr: &impl ToInputArray) -> Result<Rect> {
     static TEMPLATE_MASK: LazyLock<Mat> = LazyLock::new(|| {
         imgcodecs::imdecode(include_bytes!(env!("RUNE_MASK_TEMPLATE")), IMREAD_GRAYSCALE).unwrap()
     });
+    // Debug: save template + minimap ROI for visual comparison (first 3 calls)
+    #[cfg(debug_assertions)]
+    {
+        use std::sync::atomic::{AtomicU32, Ordering};
+        static DEBUG_COUNTER: AtomicU32 = AtomicU32::new(0);
+        let n = DEBUG_COUNTER.fetch_add(1, Ordering::Relaxed);
+        if n < 3 {
+            let exe_dir = std::env::current_exe()
+                .unwrap()
+                .parent()
+                .unwrap()
+                .to_path_buf();
+            // Save template
+            if n == 0 {
+                let mut buf = Vector::new();
+                let _ = imencode_def(".png", &*TEMPLATE, &mut buf);
+                let _ = std::fs::write(exe_dir.join("debug_rune_template.png"), buf.to_vec());
+            }
+            // Save minimap ROI
+            let mut buf = Vector::new();
+            let _ = imencode_def(".png", minimap_bgr, &mut buf);
+            let _ = std::fs::write(
+                exe_dir.join(format!("debug_minimap_roi_{n}.png")),
+                buf.to_vec(),
+            );
+        }
+    }
 
     // Expands by 2 pixels to preserve previous position calculation. Previous template is 11x11
     // while the current template is 9x9.

@@ -1528,17 +1528,28 @@ fn solve_rune_priority_action() -> PriorityAction {
     PriorityAction {
         condition: Condition(Box::new(|_, world, info| {
             if world.player.context.is_validating_rune() {
+                log::info!(target:"backend/rune","SolveRune condition: Ignore (validating)");
                 return ConditionResult::Ignore;
             }
 
             if !at_least_millis_passed_since(info.last_queued_time, 10000) {
+                log::info!(target:"backend/rune","SolveRune condition: Skip (cooldown, last_queued={:?})", info.last_queued_time);
                 return ConditionResult::Skip;
             }
+
+            let minimap_idle = matches!(world.minimap.state, Minimap::Idle(_));
+            let rune_present = match &world.minimap.state {
+                Minimap::Idle(idle) => idle.rune().is_some(),
+                _ => false,
+            };
+            let buff = &world.buffs[BuffKind::Rune].state;
+            log::info!(target:"backend/rune","SolveRune condition: minimap_idle={minimap_idle}, rune={rune_present}, buff={buff:?}");
 
             if let Minimap::Idle(idle) = world.minimap.state
                 && idle.rune().is_some()
                 && matches!(world.buffs[BuffKind::Rune].state, Buff::No)
             {
+                log::info!(target:"backend/rune","SolveRune condition: QUEUE");
                 return ConditionResult::Queue;
             }
 

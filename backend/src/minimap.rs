@@ -382,14 +382,18 @@ fn update_rune_task(
     rune: Threshold<Point>,
 ) -> Threshold<Point> {
     let was_none = rune.value.is_none();
-    if matches!(player_state, Player::SolvingRune(_)) && !was_none {
+    let is_solving = matches!(player_state, Player::SolvingRune(_));
+    if is_solving && !was_none {
+        log::info!(target:"backend/rune","rune detection: skipping (solving in progress, current={:?})", rune.value);
         return rune;
     }
 
     let rune = update_threshold_detection(resources, 5000, rune, task, move |detector| {
-        detector
+        let result = detector
             .detect_minimap_rune(minimap_bbox)
-            .map(|rune| center_of_bbox(rune, minimap_bbox))
+            .map(|rune| center_of_bbox(rune, minimap_bbox));
+        log::info!(target:"backend/rune","rune detection: result={:?} (solving={is_solving})", result);
+        result
     });
 
     if was_none && rune.value.is_some() && !resources.operation.halting() {
