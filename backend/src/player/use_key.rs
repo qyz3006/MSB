@@ -1,4 +1,4 @@
-use assert_matches;
+use assert_matches::assert_matches;
 
 use super::{
     AutoMob, PingPongDirection, PlayerContext, Timeout,
