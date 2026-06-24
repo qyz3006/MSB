@@ -1,6 +1,6 @@
 use backend::{
     ActionView, BlockReason, CondOutcome, DebugState, PriorityActionView, QueueKind,
-    RotatorDebugEvent, RotatorSnapshot, TransparentShapeDifficulty, auto_record_lie_detector,
+    RotatorDebugEvent, TransparentShapeDifficulty, auto_record_lie_detector,
     auto_save_rune, debug_state_receiver, record_video, rotator_debug_event_receiver,
     set_rotator_debug_enabled, test_spin_rune, test_transparent_shape, test_violetta,
 };
