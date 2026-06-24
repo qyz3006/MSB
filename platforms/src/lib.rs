@@ -1,5 +1,3 @@
-#![feature(str_from_raw_parts)]
-
 use thiserror::Error;
 
 #[cfg(windows)]
