@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
+      - "main"
       - "master"
       - "v*.*.*"
     tags:
@@ -14,6 +15,7 @@ on:
       - "docs/**"
   pull_request:
     branches:
+      - "main"
       - "master"
       - "v*.*.*"
     paths-ignore:
