@@ -185,14 +185,14 @@ pub fn run_system(
             .context
             .update_state(resources, player.state.clone(), minimap.state, buffs);
     if !did_update && !resources.operation.halting() {
-        // When the player detection fails, the possible causes are:
-        // - Player moved inside the edges of the minimap
-        // - Other UIs overlapping the minimap
-        //
-        // `update_non_positional_context` is here to continue updating
-        // `Player::Unstucking` returned from below when the player
-        // is inside the edges of the minimap. And also `Player::CashShopThenExit`.
+        // When the player detection fails, continue non-positional states
+        // that do not require player position (e.g. SolvingRune).
         if update_non_positional_state(resources, player, minimap.state, true) {
+            return;
+        }
+
+        // SolvingRune should not be interrupted by player detection failures.
+        if matches!(player.state, Player::SolvingRune(_)) {
             return;
         }
 
@@ -258,13 +258,7 @@ fn update_non_positional_state(
 
             update_stalling_state(player, timeout, max_timeout);
         }
-        Player::SolvingRune(_) => {
-            if failed_to_detect_player {
-                return false;
-            }
-
-            update_solving_rune_state(resources, player);
-        }
+        Player::SolvingRune(_) => update_solving_rune_state(resources, player),
         Player::SolvingShape(_) => update_solving_shape_state(resources, player),
         Player::SolvingVioletta(_) => update_solving_violetta_state(resources, player),
         Player::CashShopThenExit(cash_shop) => {

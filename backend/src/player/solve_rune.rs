@@ -2,13 +2,12 @@ use log::info;
 
 use super::{
     Player,
-    actions::PlayerAction,
     timeout::{Lifecycle, next_timeout_lifecycle},
 };
 use crate::{
     bridge::KeyKind,
     ecs::Resources,
-    player::{PlayerContext, PlayerEntity, next_action, timeout::Timeout},
+    player::{PlayerContext, PlayerEntity, timeout::Timeout},
     solvers::{RuneSolver, SolvingState},
 };
 
@@ -71,19 +70,13 @@ pub fn update_solving_rune_state(resources: &mut Resources, player: &mut PlayerE
         Player::SolvingRune(solving_rune)
     };
 
-    match next_action(&player.context) {
-        Some(PlayerAction::SolveRune) => {
-            let is_terminal = matches!(player_next_state, Player::Idle);
-            if is_terminal {
-                player.context.clear_action_completed();
-                player.context.start_validating_rune();
-            }
-
-            player.state = player_next_state;
-        }
-        Some(_) => unreachable!(),
-        None => player.state = Player::Idle, // Force cancel if not from action
+    let is_terminal = matches!(player_next_state, Player::Idle);
+    if is_terminal {
+        player.context.clear_action_completed();
+        player.context.start_validating_rune();
     }
+
+    player.state = player_next_state;
 }
 
 fn update_precondition(

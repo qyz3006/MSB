@@ -17,7 +17,7 @@ use crate::{
     detect::Detector,
     ecs::Resources,
     player::{
-        Player, PlayerAction, PlayerEntity, next_action,
+        Player, PlayerEntity,
         timeout::{Lifecycle, Timeout, next_timeout_lifecycle},
     },
     solvers::ViolettaSolver,
@@ -86,17 +86,11 @@ pub fn update_solving_violetta_state(resources: &mut Resources, player: &mut Pla
         Player::SolvingVioletta(solving_violetta)
     };
 
-    match next_action(&player.context) {
-        Some(PlayerAction::SolveVioletta) => {
-            if matches!(player_next_state, Player::Idle) {
-                player.context.clear_action_completed();
-            }
-
-            player.state = player_next_state;
-        }
-        Some(_) => unreachable!(),
-        None => player.state = Player::Idle, // Force cancel if not from action
+    if matches!(player_next_state, Player::Idle) {
+        player.context.clear_action_completed();
     }
+
+    player.state = player_next_state;
 }
 
 fn update_waiting(resources: &mut Resources, solving_violetta: &mut SolvingVioletta) {
