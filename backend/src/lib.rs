@@ -1,4 +1,3 @@
-#![feature(new_range_api)]
 #![feature(slice_pattern)]
 #![feature(box_into_inner)]
 #![feature(never_type)]
