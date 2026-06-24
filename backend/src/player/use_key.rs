@@ -1,4 +1,4 @@
-use std::assert_matches;
+use assert_matches;
 
 use super::{
     AutoMob, PingPongDirection, PlayerContext, Timeout,
@@ -692,7 +692,7 @@ fn random_wait_ticks(wait_base_ticks: u32, wait_random_range: u32) -> u32 {
 
 #[cfg(test)]
 mod tests {
-    use std::assert_matches::assert_matches;
+    use assert_matches::assert_matches;
 
     use mockall::{Sequence, predicate::eq};
     use opencv::core::Point;

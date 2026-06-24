@@ -220,7 +220,7 @@ fn update_from_action(
 
 #[cfg(test)]
 mod tests {
-    use std::assert_matches::assert_matches;
+    use assert_matches::assert_matches;
 
     use mockall::{Sequence, predicate::eq};
     use opencv::core::Point;

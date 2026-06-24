@@ -176,7 +176,7 @@ fn stopping_threshold(velocity: f32) -> i32 {
 
 #[cfg(test)]
 mod tests {
-    use std::assert_matches::assert_matches;
+    use assert_matches::assert_matches;
 
     use mockall::predicate::eq;
     use opencv::core::Point;

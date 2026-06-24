@@ -535,7 +535,7 @@ pub fn find_intermediate_points(
 
 #[cfg(test)]
 mod tests {
-    use std::assert_matches::assert_matches;
+    use assert_matches::assert_matches;
 
     use opencv::core::Point;
 

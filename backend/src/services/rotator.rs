@@ -243,7 +243,7 @@ fn buffs_from(character: &Character) -> Vec<(BuffKind, KeyKind)> {
 
 #[cfg(test)]
 mod tests {
-    use std::assert_matches::assert_matches;
+    use assert_matches::assert_matches;
     use std::collections::HashSet;
 
     use strum::IntoEnumIterator;

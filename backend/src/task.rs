@@ -155,7 +155,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use std::assert_matches::assert_matches;
+    use assert_matches::assert_matches;
 
     use anyhow::Result;
     use tokio::task::yield_now;

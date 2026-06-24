@@ -177,7 +177,7 @@ fn update_completing(resources: &mut Resources, using: &mut UsingBooster) {
 
 #[cfg(test)]
 mod tests {
-    use std::assert_matches::assert_matches;
+    use assert_matches::assert_matches;
 
     use mockall::predicate::eq;
 

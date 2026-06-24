@@ -258,7 +258,7 @@ pub fn run_system(resources: &mut Resources, buff: &mut BuffEntity, player_state
 
 #[cfg(test)]
 mod tests {
-    use std::assert_matches::assert_matches;
+    use assert_matches::assert_matches;
     use std::mem::discriminant;
     use std::time::Duration;
 

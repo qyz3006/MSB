@@ -264,7 +264,7 @@ fn update_completing(resources: &mut Resources, panicking: &mut Panicking, minim
 
 #[cfg(test)]
 mod tests {
-    use std::assert_matches::assert_matches;
+    use assert_matches::assert_matches;
 
     use anyhow::{Ok, anyhow};
     use mockall::predicate::eq;
