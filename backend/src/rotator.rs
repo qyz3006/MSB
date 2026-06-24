@@ -1,6 +1,6 @@
+use assert_matches::debug_assert_matches;
 use std::{
     collections::VecDeque,
-    debug_assert_matches,
     fmt::Debug,
     sync::{
         Arc,
