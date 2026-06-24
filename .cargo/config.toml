@@ -1,0 +1,9 @@
+[env]
+OPENCV_MSVC_CRT = "static"
+OPENCV_DISABLE_PROBES = "environment,pkg_config,cmake,vcpkg_cmake"
+VCPKGRS_TRIPLET = "x64-windows-static"
+LIBCLANG_PATH = "C:/Program Files/LLVM/bin"
+
+[build]
+target = "x86_64-pc-windows-msvc"
+
