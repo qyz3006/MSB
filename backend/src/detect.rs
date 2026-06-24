@@ -1191,12 +1191,13 @@ fn detect_minimap_rune(minimap_bgr: &impl ToInputArray) -> Result<Rect> {
 
     // Expands by 2 pixels to preserve previous position calculation. Previous template is 11x11
     // while the current template is 9x9.
+    // Reduced threshold from 0.75 to 0.45 based on debug PNG analysis (template score ~0.50)
     detect_template_single(
         minimap_bgr,
         &*TEMPLATE,
         &*TEMPLATE_MASK,
         Point::default(),
-        0.75,
+        0.45,
     )
     .map(|(bbox, _)| expand_bbox(None, bbox, 1))
 }

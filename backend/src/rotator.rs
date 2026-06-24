@@ -1,4 +1,3 @@
-use assert_matches::debug_assert_matches;
 use std::{
     collections::VecDeque,
     fmt::Debug,
@@ -10,6 +9,7 @@ use std::{
 };
 
 use anyhow::Result;
+use assert_matches::debug_assert_matches;
 use log::{debug, info};
 #[cfg(test)]
 use mockall::{automock, concretize};
