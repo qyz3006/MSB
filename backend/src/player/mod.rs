@@ -215,10 +215,10 @@ pub fn run_system(
     }
 
     if player.context.reset_to_idle_next_update {
-        if let Player::UseKey(use_key) = &player.state {
-            if use_key.interruptible_by_priority {
-                use_key.release_if_holding(resources);
-            }
+        if let Player::UseKey(use_key) = &player.state
+            && use_key.interruptible_by_priority
+        {
+            use_key.release_if_holding(resources);
         }
         player.context.reset_to_idle_next_update = false;
         player.state = Player::Idle;
