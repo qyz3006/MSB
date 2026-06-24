@@ -435,7 +435,6 @@ fn get_mage_teleport_direction(
 #[cfg(test)]
 mod tests {
     use assert_matches::assert_matches;
-
     use mockall::predicate::eq;
     use opencv::core::{Point, Rect};
 

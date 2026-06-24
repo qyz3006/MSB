@@ -237,7 +237,6 @@ fn update_from_action(
 #[cfg(test)]
 mod tests {
     use assert_matches::assert_matches;
-
     use mockall::predicate::eq;
     use opencv::core::Point;
 

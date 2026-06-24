@@ -101,7 +101,6 @@ impl MapService for DefaultMapService {
 #[cfg(test)]
 mod tests {
     use assert_matches::assert_matches;
-
     use opencv::core::Rect;
 
     use super::*;

@@ -141,10 +141,10 @@ fn get_anchor(mat: &impl MatTraitConst, bbox: Rect) -> (Point, Vec4b) {
 
 #[cfg(test)]
 mod tests {
-    use assert_matches::assert_matches;
     use std::time::Duration;
 
     use anyhow::anyhow;
+    use assert_matches::assert_matches;
     use opencv::boxed_ref::BoxedRef;
     use opencv::core::{CV_8UC4, Mat, MatExprTraitConst, MatTrait, Rect, Vec4b};
     use tokio::time::advance;

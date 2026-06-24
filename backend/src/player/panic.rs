@@ -264,9 +264,8 @@ fn update_completing(resources: &mut Resources, panicking: &mut Panicking, minim
 
 #[cfg(test)]
 mod tests {
-    use assert_matches::assert_matches;
-
     use anyhow::{Ok, anyhow};
+    use assert_matches::assert_matches;
     use mockall::predicate::eq;
     use opencv::core::Rect;
 
