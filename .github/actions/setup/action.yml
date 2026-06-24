@@ -65,7 +65,17 @@ runs:
 
     - name: Install protoc
       shell: pwsh
-      run: choco install -y protoc --version "33.0.0"
+      run: |
+        $maxRetries = 3
+        $retryCount = 0
+        do {
+          choco install -y protoc --version "33.0.0"
+          if ($LASTEXITCODE -eq 0) { break }
+          $retryCount++
+          Write-Warning "protoc install failed (attempt $retryCount/$maxRetries), retrying..."
+          Start-Sleep -Seconds 5
+        } while ($retryCount -lt $maxRetries)
+        if ($LASTEXITCODE -ne 0) { throw "protoc installation failed after $maxRetries attempts" }
 
     - name: Install LLVM and Clang
       uses: KyleMayes/install-llvm-action@v2
