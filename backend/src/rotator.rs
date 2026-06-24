@@ -1961,11 +1961,9 @@ fn next_action_id() -> u32 {
 
 #[cfg(test)]
 mod tests {
-    use std::{
-        assert_matches::assert_matches,
-        time::{Duration, Instant},
-    };
+    use std::time::{Duration, Instant};
 
+    use assert_matches::assert_matches;
     use opencv::core::{Point, Vec4b};
     use strum::IntoEnumIterator;
     use tokio::{task::yield_now, time::timeout};
