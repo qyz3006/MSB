@@ -80,10 +80,7 @@ pub enum RotatorDebugEvent {
         action: ActionView,
     },
     /// The priority dispatch was blocked this tick.
-    Blocked {
-        at: ElapsedMs,
-        reason: BlockReason,
-    },
+    Blocked { at: ElapsedMs, reason: BlockReason },
     /// Normal traversal advanced to a new index.
     NormalAdvanced {
         at: ElapsedMs,

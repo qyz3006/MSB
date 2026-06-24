@@ -1,18 +1,12 @@
 use std::{
-    debug_assert_matches,
     collections::VecDeque,
+    debug_assert_matches,
     fmt::Debug,
     sync::{
         Arc,
         atomic::{AtomicU32, Ordering},
     },
     time::Instant,
-};
-
-#[cfg(debug_assertions)]
-use crate::rotator_debug::{
-    ActionView, BlockReason, CondOutcome, PriorityActionView, QueueKind, RotatorDebugEvent,
-    RotatorDebugSink, RotatorSnapshot,
 };
 
 use anyhow::Result;
@@ -22,6 +16,11 @@ use mockall::{automock, concretize};
 use opencv::core::{Point, Rect};
 use ordered_hash_map::OrderedHashMap;
 
+#[cfg(debug_assertions)]
+use crate::rotator_debug::{
+    ActionView, BlockReason, CondOutcome, PriorityActionView, QueueKind, RotatorDebugEvent,
+    RotatorDebugSink, RotatorSnapshot,
+};
 use crate::{
     Bound,
     array::Array,

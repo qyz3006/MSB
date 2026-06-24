@@ -171,10 +171,7 @@ mod tests {
             character.disable_double_jumping
         );
         assert_eq!(state.config.disable_adjusting, character.disable_adjusting);
-        assert_eq!(
-            state.config.move_tolerance,
-            character.move_tolerance as i32
-        );
+        assert_eq!(state.config.move_tolerance, character.move_tolerance as i32);
         assert_eq!(
             state.config.disable_teleport_on_fall,
             character.disable_teleport_on_fall

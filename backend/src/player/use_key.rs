@@ -193,8 +193,13 @@ impl UseKey {
     ///
     /// Called when this UseKey is interrupted by a priority action mid-hold.
     pub(super) fn release_if_holding(&self, resources: &mut Resources) {
-        if matches!(self.state, State::Using(Using { hold_completed: false, .. }))
-            && self.key_hold_ticks > 0
+        if matches!(
+            self.state,
+            State::Using(Using {
+                hold_completed: false,
+                ..
+            })
+        ) && self.key_hold_ticks > 0
         {
             resources.input.send_key_up(self.key);
         }

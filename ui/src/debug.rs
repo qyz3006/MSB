@@ -136,7 +136,6 @@ struct TimelineEntry {
     is_warn: bool,
 }
 
-
 impl RotatorDebugState {
     fn apply_event(&mut self, ev: &RotatorDebugEvent) {
         match ev {
@@ -207,11 +206,7 @@ impl RotatorDebugState {
             }
             RotatorDebugEvent::Blocked { at, reason } => {
                 self.player_block_reason = reason.clone();
-                let text = format!(
-                    "{:.2}s  Blocked  {:?}",
-                    *at as f64 / 1000.0,
-                    reason
-                );
+                let text = format!("{:.2}s  Blocked  {:?}", *at as f64 / 1000.0, reason);
                 self.push_timeline(TimelineEntry {
                     at_ms: *at,
                     text,
@@ -310,7 +305,9 @@ pub fn RotatorDebugPanel() -> Element {
                                         d.priority_actions = snap.priority_actions.clone();
                                         d.player_block_reason = snap.player_block_reason.clone();
                                     }
-                                    RotatorDebugEvent::NormalAdvanced { index, backward, .. } => {
+                                    RotatorDebugEvent::NormalAdvanced {
+                                        index, backward, ..
+                                    } => {
                                         d.normal_index = *index;
                                         d.normal_backward = *backward;
                                     }
@@ -511,8 +508,7 @@ fn render_cooldown(remaining_ms: Option<i64>, condition_kind: &str) -> Element {
         };
     }
 
-    let pct = ((total_ms - remaining) as f64 / total_ms as f64 * 100.0)
-        .clamp(0.0, 100.0) as u32;
+    let pct = ((total_ms - remaining) as f64 / total_ms as f64 * 100.0).clamp(0.0, 100.0) as u32;
     let secs = remaining as f64 / 1000.0;
 
     rsx! {

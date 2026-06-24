@@ -51,18 +51,17 @@ mod task;
 mod tracker;
 mod utils;
 
+#[cfg(debug_assertions)]
+pub use rotator_debug::{
+    ActionView, BlockReason, CondOutcome, PriorityActionView, QueueKind, RotatorDebugEvent,
+    RotatorSnapshot,
+};
 pub use {
     database::{DatabaseEvent, database_event_receiver},
     models::*,
     pathing::MAX_PLATFORMS_COUNT,
     run::init,
     strum::{EnumMessage, IntoEnumIterator, ParseError},
-};
-
-#[cfg(debug_assertions)]
-pub use rotator_debug::{
-    ActionView, BlockReason, CondOutcome, PriorityActionView, QueueKind, RotatorDebugEvent,
-    RotatorSnapshot,
 };
 
 type PendingRequest = (Request, Sender<Response>);

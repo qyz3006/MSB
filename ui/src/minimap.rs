@@ -622,9 +622,17 @@ fn Canvas(
             if *minimap_size.peek() != Some((width, height)) {
                 minimap_size.set(Some((width, height)));
             }
-            let Err(error) =
-                canvas.send((frame, width, height, destinations, bound, quadrant, portals, rune, player_position))
-            else {
+            let Err(error) = canvas.send((
+                frame,
+                width,
+                height,
+                destinations,
+                bound,
+                quadrant,
+                portals,
+                rune,
+                player_position,
+            )) else {
                 continue;
             };
             if matches!(error, EvalError::Finished) {
