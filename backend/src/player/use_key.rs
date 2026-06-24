@@ -722,6 +722,7 @@ mod tests {
     fn update_use_key_state_ensuring_use_with_stationary() {
         let mut resources = Resources::new(None, None);
         let mut player = make_player(UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 0,
             key_hold_buffered_to_wait_after: false,
@@ -743,6 +744,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::EnsuringUseWith,
                 ..
             })
@@ -754,6 +756,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Precondition,
                 ..
             })
@@ -764,6 +767,7 @@ mod tests {
     fn update_use_key_state_ensuring_use_with_double_jump() {
         let mut resources = Resources::new(None, None);
         let mut player = make_player(UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 0,
             key_hold_buffered_to_wait_after: false,
@@ -786,6 +790,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::EnsuringUseWith,
                 ..
             })
@@ -810,6 +815,7 @@ mod tests {
             .once();
         let mut resources = Resources::new(Some(keys), None);
         let mut use_key = UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 0,
             key_hold_buffered_to_wait_after: false,
@@ -832,6 +838,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::ChangingDirection(Timeout { started: false, .. }),
                 ..
             })
@@ -842,6 +849,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::ChangingDirection(Timeout { started: true, .. }),
                 ..
             })
@@ -862,6 +870,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Precondition,
                 ..
             })
@@ -876,6 +885,7 @@ mod tests {
             .withf(|k| matches!(k, KeyKind::A));
         let mut resources = Resources::new(Some(keys), None);
         let use_key = UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 0,
             key_hold_buffered_to_wait_after: false,
@@ -898,6 +908,7 @@ mod tests {
             assert_matches!(
                 player.state,
                 Player::UseKey(UseKey {
+                    interruptible_by_priority: false,
                     state: State::Using(_),
                     ..
                 })
@@ -907,6 +918,7 @@ mod tests {
             assert_matches!(
                 player.state,
                 Player::UseKey(UseKey {
+                    interruptible_by_priority: false,
                     state: State::Postcondition,
                     ..
                 })
@@ -919,6 +931,7 @@ mod tests {
                 assert_matches!(
                     player.state,
                     Player::UseKey(UseKey {
+                        interruptible_by_priority: false,
                         state: State::Precondition,
                         ..
                     })
@@ -931,6 +944,7 @@ mod tests {
     fn update_use_key_state_waits_before() {
         let mut resources = Resources::new(None, None);
         let use_key = UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 0,
             key_hold_buffered_to_wait_after: false,
@@ -954,6 +968,7 @@ mod tests {
         assert_matches!(
             player.context.stalling_timeout_state,
             Some(Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Using(_),
                 pending_transition: PendingTransition::None,
                 ..
@@ -969,6 +984,7 @@ mod tests {
             .once();
         let mut resources = Resources::new(Some(keys), None);
         let use_key = UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 0,
             key_hold_buffered_to_wait_after: false,
@@ -992,6 +1008,7 @@ mod tests {
         assert_matches!(
             player.context.stalling_timeout_state,
             Some(Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Postcondition,
                 pending_transition: PendingTransition::None,
                 ..
@@ -1017,6 +1034,7 @@ mod tests {
             .in_sequence(&mut sequence);
         let mut resources = Resources::new(Some(keys), None);
         let mut use_key = UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 0,
             key_hold_buffered_to_wait_after: false,
@@ -1039,6 +1057,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Using(Using {
                     link_completed: false,
                     ..
@@ -1061,6 +1080,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Using(Using {
                     link_completed: false,
                     ..
@@ -1083,6 +1103,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Using(Using {
                     link_completed: true,
                     ..
@@ -1107,6 +1128,7 @@ mod tests {
         let mut resources = Resources::new(Some(keys), None);
 
         let mut use_key = UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 0,
             key_hold_buffered_to_wait_after: false,
@@ -1129,6 +1151,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Using(Using {
                     link_completed: false,
                     hold_completed: false,
@@ -1162,6 +1185,7 @@ mod tests {
         let mut resources = Resources::new(Some(keys), None);
 
         let mut use_key = UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 0,
             key_hold_buffered_to_wait_after: false,
@@ -1184,6 +1208,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Using(Using {
                     link_completed: false,
                     hold_completed: true,
@@ -1222,6 +1247,7 @@ mod tests {
         let mut resources = Resources::new(Some(keys), None);
 
         let use_key = UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 0,
             key_hold_buffered_to_wait_after: false,
@@ -1244,6 +1270,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Postcondition,
                 ..
             })
@@ -1268,6 +1295,7 @@ mod tests {
 
         let mut resources = Resources::new(Some(keys), None);
         let use_key = UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 3,
             key_hold_buffered_to_wait_after: false,
@@ -1307,6 +1335,7 @@ mod tests {
 
         let mut resources = Resources::new(Some(keys), None);
         let use_key = UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             key_hold_ticks: 2,
             key_hold_buffered_to_wait_after: true,
@@ -1329,6 +1358,7 @@ mod tests {
         assert_matches!(
             player.state,
             Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Using(Using {
                     hold_completed: true,
                     ..
@@ -1385,6 +1415,7 @@ mod tests {
 
         let mut resources = Resources::new(Some(keys), None);
         let use_key = UseKey {
+            interruptible_by_priority: false,
             key: KeyKind::A,
             count: 2,
             current_count: 0,
@@ -1426,12 +1457,14 @@ mod tests {
         assert_matches!(
             player.context.stalling_timeout_state,
             Some(Player::UseKey(UseKey {
+                interruptible_by_priority: false,
                 state: State::Postcondition,
                 ..
             }))
         );
 
         let mut player = make_player(UseKey {
+            interruptible_by_priority: false,
             current_count: 1,
             state: State::Using(Using::default()),
             ..use_key
