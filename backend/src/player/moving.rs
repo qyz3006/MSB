@@ -414,6 +414,13 @@ fn abort_action_on_state_repeat(
     player_next_state: Player,
     minimap_state: Minimap,
 ) {
+    // Do not abort while solving rune — the movement during Precondition is intentional,
+    // not a stuck player. Aborting it would prevent the player from reaching the rune.
+    if player.context.is_solving_rune() {
+        player.state = player_next_state;
+        return;
+    }
+
     if player.context.track_last_movement_repeated() {
         info!(target:"backend/player","abort action due to repeated state");
         player.context.auto_mob_track_ignore_xs(minimap_state, true);

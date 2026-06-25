@@ -50,6 +50,12 @@ pub fn update_solving_rune_state(resources: &mut Resources, player: &mut PlayerE
         panic!("state is not solving rune");
     };
 
+    // Mark solving rune as in progress (prevents abort_action_on_state_repeat from
+    // aborting the movement required to reach the rune position)
+    if !player.context.is_solving_rune() {
+        player.context.set_solving_rune(true);
+    }
+
     match solving_rune.state {
         State::Precondition(_) => {
             update_precondition(resources, &player.context, &mut solving_rune)
@@ -74,6 +80,9 @@ pub fn update_solving_rune_state(resources: &mut Resources, player: &mut PlayerE
     if is_terminal {
         player.context.clear_action_completed();
         player.context.start_validating_rune();
+        // Clear the solving rune flag so that abort_action_on_state_repeat
+        // can abort other actions (e.g. auto-mob) as normal
+        player.context.set_solving_rune(false);
     }
 
     player.state = player_next_state;

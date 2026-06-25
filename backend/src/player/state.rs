@@ -374,6 +374,12 @@ pub struct PlayerContext {
     /// This is [`Some`] when [`Player::SolvingRune`] successfully detects the rune
     /// and sends all the keys.
     rune_validate_timeout: Option<Timeout>,
+    /// Whether the player is currently in the middle of solving a rune
+    /// (from the moment SolveRune priority action is dispatched until it completes).
+    ///
+    /// This is used to prevent [`abort_action_on_state_repeat`] from aborting
+    /// the movement required to reach the rune position.
+    solving_rune_in_progress: bool,
 
     /// A state to return to after stalling.
     ///
@@ -545,6 +551,18 @@ impl PlayerContext {
     #[inline]
     pub fn is_validating_rune(&self) -> bool {
         self.rune_validate_timeout.is_some()
+    }
+
+    /// Whether the player is currently solving a rune (from dispatch to completion).
+    #[inline]
+    pub fn is_solving_rune(&self) -> bool {
+        self.solving_rune_in_progress
+    }
+
+    /// Sets whether the player is currently solving a rune.
+    #[inline]
+    pub(super) fn set_solving_rune(&mut self, solving: bool) {
+        self.solving_rune_in_progress = solving;
     }
 
     /// Whether there is a priority rune action.
